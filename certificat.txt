@@ -1,0 +1,188 @@
+import React, { useState } from 'react';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+
+const UserListPage = () => {
+  const [alertOpen, setAlertOpen] = useState(false);
+
+  const handleDownloadClick = () => {
+    setAlertOpen(true);
+  };
+
+  const handleAlertClose = () => {
+    // Create a link element
+    const link = document.createElement('a');
+    link.href = '/cer.png'; // Ensure the file path is correct
+    link.download = 'certificate.png'; // Set the name of the downloaded file
+    link.click(); // Simulate a click on the link to trigger the download
+
+    setAlertOpen(false);
+  };
+
+  return (
+    <div>
+      <Card className="tw-w-[716px] tw-h-[615px]">
+        <div className="tw-flex tw-justify-between tw-items-center tw-p-4">
+          <CardHeader className="tw-flex-1">
+            <CardTitle>Data Science Courses completed</CardTitle>
+          </CardHeader>
+          <CardFooter className="tw-flex-shrink-0">
+            <Button variant="outline" onClick={handleDownloadClick}>Download</Button>
+          </CardFooter>
+        </div>
+        <CardContent>
+          <img
+            src="/cer.png"
+            alt="Certificate"
+            className="tw-w-[716px] tw-h-[506px] tw-mr-1 tw-rounded-[4px] tw-mb-[30px]"
+          />
+        </CardContent>
+      </Card>
+
+      <AlertDialog open={alertOpen} onOpenChange={setAlertOpen}>
+        <AlertDialogContent className="tw-w-[336px] tw-h-[151px] tw-flex tw-flex-col tw-justify-center tw-items-center">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="tw-text-center">
+              Click on the button below to <br />
+              download the certificate
+            </AlertDialogTitle>
+          </AlertDialogHeader>
+          <AlertDialogFooter className="tw-flex tw-justify-center tw-items-center tw-w-[160px] tw-h-[40px]">
+            <AlertDialogAction onClick={handleAlertClose} className="tw-mt-auto">
+              Get JPG
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </div>
+  );
+};
+
+export default UserListPage;
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// this is the table 
+import React from 'react'
+import { Card, CardContent } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+const invoices = [
+  {
+    invoice: "INV001",
+    paymentStatus: "Paid",
+    totalAmount: "$250.00",
+    paymentMethod: "Credit Card",
+  },
+  {
+    invoice: "INV002",
+    paymentStatus: "Pending",
+    totalAmount: "$150.00",
+    paymentMethod: "PayPal",
+  },
+  {
+    invoice: "INV003",
+    paymentStatus: "Unpaid",
+    totalAmount: "$350.00",
+    paymentMethod: "Bank Transfer",
+  },
+  {
+    invoice: "INV004",
+    paymentStatus: "Paid",
+    totalAmount: "$450.00",
+    paymentMethod: "Credit Card",
+  },
+  {
+    invoice: "INV005",
+    paymentStatus: "Paid",
+    totalAmount: "$550.00",
+    paymentMethod: "PayPal",
+  },
+  {
+    invoice: "INV006",
+    paymentStatus: "Pending",
+    totalAmount: "$200.00",
+    paymentMethod: "Bank Transfer",
+  },
+ 
+]
+
+const UserAddPage = () => {
+  return (
+    <div>
+      <Card >
+        <CardContent>
+        Courses completed
+        <Table>
+      
+        <TableHeader>
+    <TableRow>
+      
+      <TableHead>Status</TableHead>
+      <TableHead>Method</TableHead>
+      <TableHead>view</TableHead>
+      
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      
+      <TableCell>Paid</TableCell>
+      <TableCell>Credit Card</TableCell>
+    
+    </TableRow>
+  </TableBody>
+     
+    </Table>
+
+          
+        </CardContent>
+      </Card>
+      
+    </div>
+  )
+}
+
+export default UserAddPage
+

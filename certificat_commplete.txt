@@ -1,0 +1,158 @@
+import React, { useState, useRef } from 'react';
+import html2canvas from 'html2canvas'; // Import html2canvas
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { Download } from 'lucide-react';
+
+
+
+const UserListPage = () => {
+  const [alertOpen, setAlertOpen] = useState(false);
+  const certificateRef = useRef<HTMLDivElement>(null);
+
+  const handleDownloadClick = () => {
+    setAlertOpen(true);
+  };
+
+  const handleDownloadImage = async () => {
+    if (certificateRef.current) {
+      try {
+        const canvas = await html2canvas(certificateRef.current, {
+          useCORS: true, // This option helps with loading external images
+         
+          scrollX: 0,
+          scrollY: 0,
+          
+        });
+        const dataURL = canvas.toDataURL('image/jpeg');
+        const link = document.createElement('a');
+        link.href = dataURL;
+        link.download = 'certificate.jpg';
+        link.click();
+      } catch (error) {
+        console.error('Error capturing the certificate:', error);
+      }
+    }
+    setAlertOpen(false);
+  };
+  
+  
+
+  return (
+    <div>
+      <Card className="tw-w-[820px] tw-h-[628px] ">
+        <CardContent>
+          <div className="tw-flex tw-justify-between tw-items-center tw-p-4">
+            <div className=" tw-ml-[-17px]  ">
+              <CardTitle>Data Science Courses completed</CardTitle>
+            </div>
+
+            <div className="tw-flex-shrink-0 ">
+              <Button className=' tw-mt-4  tw-mr-[-12px] tw-bg-[#D3ECFD] tw-h-[31px] tw-w-[120px]' variant="outline" onClick={handleDownloadClick}>Download  
+                   <Download className="tw-w-3 tw-h-6  tw-ml-1" /> 
+               </Button>
+            </div>
+
+          </div>
+
+          <Card className='tw-mr-9  tw-w-[770px] tw-h-[525px] tw-mt-[-8px]]'>
+          <CardContent className="flex justify-end  tw-mt-3 " ref={certificateRef}>
+              {/* Certificate content */}
+              <img src="/certi.png" className='tw-ml-[600px]' />
+              <div className="tw-flex tw-items-center">
+                <div className="tw-flex tw-justify-start">
+                  <img src="/123456.png" className="tw-h-[150px] tw-w-[220px] tw-mt-6 tw-ml-[-23px]" />
+                </div>
+                <div className="tw-ml-[7px]">
+                  <span className="tw-text-black tw-text-4xl tw-font-bold tw-mr-[10px]  tw-mb-[10px] ">CERTIFICATE</span>
+                  <br/>
+                  OF COMPLETION 
+                </div>
+              </div>
+              <div className='tw-ml-[223px] tw-text-xs tw-text-black  tw-mt-2 tw-mb-4'>
+                THIS IS TO CERTIFY THAT 
+              </div>
+              <div className='tw-ml-[225px] tw-mb-[-20px]   tw-mt-[-10px] tw-text-blue-900 tw-text-3xl tw-font-bold'>
+                Jone Don
+              </div>
+              {/* //margin moving to the bottom used-my */}
+              <hr className=" tw-ml-[225px] tw-border-t-3 tw-border-yellow-600  tw-w-[351px] tw-my-8" />
+
+              <div className='tw-ml-[225px]  tw-mt-[-16px]'>
+                <div className="tw-whitespace-nowrap tw-text-xs">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                </div>
+                <div className="tw-whitespace-nowrap tw-text-xs">
+                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                </div>
+                <div className="tw-whitespace-nowrap tw-text-xs">
+                  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum
+                </div>
+                <div className="tw-whitespace-nowrap tw-text-xs">
+                  dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                </div>
+                <div className="tw-whitespace-nowrap tw-text-xs">
+                  labore et dolore magna aliqua. Ut enim ad minim veniam.
+                </div>
+              </div>
+              <div className='tw-ml-[225px]  tw-text-blue-900 tw-text-1xl tw-font-bold  tw-mt-5'>
+                Alex Samuel
+              </div>
+              <div className='tw-ml-[225px] tw-text-xs'>
+                <div>Chief Executive Officer</div>
+                <div>Company Name</div>
+                <div className="tw-ml-[300px] tw-whitespace-nowrap">
+                  Date DD Month 20xx
+                </div>
+              </div>
+              <div className='tw-flex'>
+                <div>
+                  <img src="/dots.jpg" className="tw-h-[150px] tw-w-[200px] tw-mt-[-118px] tw-ml-[-23px]" />
+                </div>
+                <div className="flex justify-end   tw-ml-[05px] tw-mt-[-140px] ">
+                  <img
+                    src="/logoedu1.png"
+                    className="tw-h-[225px] tw-w-[300px] tw-ml-[273px] tw-opacity-10  tw-mt-[-51px]"
+                  />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+        </CardContent> 
+      </Card>
+
+      <AlertDialog open={alertOpen} onOpenChange={setAlertOpen}>
+        <AlertDialogContent className="tw-w-[336px] tw-h-[151px] tw-flex tw-flex-col tw-justify-center tw-items-center">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="tw-text-center">
+              Click on the button below to <br />
+              download the certificate
+            </AlertDialogTitle>
+          </AlertDialogHeader>
+          <AlertDialogFooter className="tw-flex tw-justify-center tw-items-center tw-w-40 tw-h-[40px]">
+            <AlertDialogAction onClick={handleDownloadImage} className="tw-mt-auto">
+              Get JPG
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </div>
+  );
+};
+
+export default UserListPage;
